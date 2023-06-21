@@ -41,6 +41,11 @@ const Home = () => {
     if (sortBy === "price") {
       return filteredProducts.slice().sort((a, b) => a.price - b.price);
     }
+    if (sortBy === "popularity") {
+      return filteredProducts
+        .slice()
+        .sort((a, b) => a.popularity - b.popularity);
+    }
     return filteredProducts;
   };
 
@@ -66,6 +71,7 @@ const Home = () => {
         <select id="sortBy" value={sortBy} onChange={handleSortByChange}>
           <option value=""> None</option>
           <option value="price"> Price</option>
+          <option value="popularity">Popularity</option>
         </select>
       </div>
 
