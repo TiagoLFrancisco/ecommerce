@@ -10,16 +10,24 @@ const Home = () => {
 
   useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchProducts = async () => {
     try {
       const response = await axios.get("https://fakestoreapi.com/products");
-
-      setProducts(response.data);
+      const updatedProducts = response.data.map((product) => ({
+        ...product,
+        popularity: getRandomPopularity(),
+      }));
+      setProducts(updatedProducts);
     } catch (error) {
       console.log("Error fetching products:", error);
     }
+  };
+
+  const getRandomPopularity = () => {
+    return Math.floor(Math.random() * 100) + 1;
   };
 
   const handleCategoryChange = (event) => {
@@ -80,6 +88,7 @@ const Home = () => {
           <li key={product.id}>
             <h3>{product.title}</h3>
             <p>Price: ${product.price}</p>
+            <p>Popularity: {product.popularity} </p>
             <p>Category: {product.category}</p>
             <p>Description: {product.description}</p>
             <p>
