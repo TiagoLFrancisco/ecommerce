@@ -37,9 +37,9 @@ const Home = () => {
       <h1>Product List</h1>
 
       <div>
-        <label htmlFor="category">Filter by Category:</label>
+        <label htmlFor="category">Filter by Category: </label>
         <select id="category" value={category} onChange={handleCategoryChange}>
-          <option value="">All</option>
+          <option value="">Show All</option>
           <option value="electronics">Electronics</option>
           <option value="jewelery">Jewelery</option>
           <option value="men's clothing">Men's clothing</option>
@@ -50,8 +50,7 @@ const Home = () => {
       <ul>
         {filteredProducts.map((product) => (
           <li key={product.id}>
-            <h3>{product.name}</h3>
-            <p>Title: {product.title}</p>
+            <h3>{product.title}</h3>
             <p>Price: ${product.price}</p>
             <p>Category: {product.category}</p>
             <p>Description: {product.description}</p>
