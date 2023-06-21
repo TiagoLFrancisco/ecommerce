@@ -3,6 +3,7 @@ import axios from "axios";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     fetchProducts();
@@ -18,11 +19,36 @@ const Home = () => {
     }
   };
 
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
+  };
+
+  const filterProductsByCategory = () => {
+    if (category === "") {
+      return products;
+    }
+    return products.filter((product) => product.category === category);
+  };
+
+  const filteredProducts = filterProductsByCategory();
+
   return (
     <div>
       <h1>Product List</h1>
+
+      <div>
+        <label htmlFor="category">Filter by Category:</label>
+        <select id="category" value={category} onChange={handleCategoryChange}>
+          <option value="">All</option>
+          <option value="electronics">Electronics</option>
+          <option value="jewelery">Jewelery</option>
+          <option value="men's clothing">Men's clothing</option>
+          <option value="women's clothing">Women's clothing</option>
+        </select>
+      </div>
+
       <ul>
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <li key={product.id}>
             <h3>{product.name}</h3>
             <p>Title: {product.title}</p>
