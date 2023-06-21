@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import "./Home.css";
+
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState("");
@@ -75,7 +77,12 @@ const Home = () => {
             <p>Category: {product.category}</p>
             <p>Description: {product.description}</p>
             <p>
-              Image: <img src={product.image} alt={product.name} />
+              Image:{" "}
+              <img
+                className="item-image"
+                src={product.image}
+                alt={product.name}
+              />
             </p>
           </li>
         ))}
