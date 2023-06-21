@@ -46,13 +46,16 @@ const Home = () => {
   };
 
   const sortProducts = (filteredProducts) => {
-    if (sortBy === "price") {
+    if (sortBy === "priceLowToHigh") {
       return filteredProducts.slice().sort((a, b) => a.price - b.price);
+    }
+    if (sortBy === "priceHighToLow") {
+      return filteredProducts.slice().sort((a, b) => b.price - a.price);
     }
     if (sortBy === "popularity") {
       return filteredProducts
         .slice()
-        .sort((a, b) => a.popularity - b.popularity);
+        .sort((a, b) => b.popularity - a.popularity);
     }
     return filteredProducts;
   };
@@ -78,8 +81,9 @@ const Home = () => {
         <label htmlFor="sortBy"> Sort by: </label>
         <select id="sortBy" value={sortBy} onChange={handleSortByChange}>
           <option value=""> None</option>
-          <option value="price"> Price</option>
-          <option value="popularity">Popularity</option>
+          <option value="priceLowToHigh"> Price: Low to high </option>
+          <option value="priceHighToLow"> Price: High to low </option>
+          <option value="popularity">Avg. Customer review </option>
         </select>
       </div>
 
