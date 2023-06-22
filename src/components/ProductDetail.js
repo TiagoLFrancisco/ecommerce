@@ -3,16 +3,33 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 function ProductDetail() {
   const location = useLocation();
-  const { selectedProduct, relatedProducts } = location.state;
+  const { selectedProduct, relatedProducts, products } = location.state;
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(-1);
+    navigate("/");
   };
 
   const filteredRelatedProducts = relatedProducts.filter(
     (product) => product.id !== selectedProduct.id
   );
+
+  const handleItemClick = (productId) => {
+    const newSelectedProduct = products.find(
+      (product) => product.id === productId
+    );
+    const newRelatedProducts = products.filter(
+      (product) => product.category === newSelectedProduct.category
+    );
+
+    navigate(`/product_detail/${productId}`, {
+      state: {
+        selectedProduct: newSelectedProduct,
+        relatedProducts: newRelatedProducts,
+        products: products,
+      },
+    });
+  };
 
   return (
     <div>
@@ -23,26 +40,28 @@ function ProductDetail() {
           <p>Price: ${selectedProduct.price}</p>
           <p>Description: {selectedProduct.description}</p>
           <p>
-            Image:{" "}
             <img
+              title={selectedProduct.title}
               className="item-image"
               src={selectedProduct.image}
               alt={selectedProduct.name}
             />
           </p>
-          <p>Related products</p>
-          <div>
+          <p>Related products:</p>
+          <p>
             {filteredRelatedProducts.map((product) => (
               <img
+                title={product.title}
                 key={product.id}
                 className="item-image"
                 src={product.image}
                 alt={product.name}
+                onClick={() => handleItemClick(product.id)}
               />
             ))}
-          </div>
+          </p>
 
-          <button onClick={handleGoBack}>Go Back</button>
+          <button onClick={handleGoBack}>Back to Item List</button>
         </div>
       )}
     </div>

@@ -72,8 +72,9 @@ const Home = () => {
     const relatedProducts = products.filter(
       (product) => product.category === selectedProduct.category
     );
+
     navigate(`/product_detail/${productId}`, {
-      state: { selectedProduct, relatedProducts },
+      state: { selectedProduct, relatedProducts, products: products },
     });
   };
 
@@ -111,8 +112,8 @@ const Home = () => {
             <p>Category: {product.category}</p>
             <p>Description: {product.description}</p>
             <p>
-              Image:{" "}
               <img
+                title={product.title}
                 className="item-image"
                 src={product.image}
                 alt={product.name}
