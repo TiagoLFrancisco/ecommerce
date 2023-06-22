@@ -69,7 +69,7 @@ const Home = () => {
     const selectedProduct = products.find(
       (product) => product.id === productId
     );
-    navigate(`/products/${productId}`, { state: selectedProduct });
+    navigate(`/product_detail/${productId}`, { state: selectedProduct });
   };
 
   return (
