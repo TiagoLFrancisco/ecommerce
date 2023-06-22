@@ -69,7 +69,12 @@ const Home = () => {
     const selectedProduct = products.find(
       (product) => product.id === productId
     );
-    navigate(`/product_detail/${productId}`, { state: selectedProduct });
+    const relatedProducts = products.filter(
+      (product) => product.category === selectedProduct.category
+    );
+    navigate(`/product_detail/${productId}`, {
+      state: { selectedProduct, relatedProducts },
+    });
   };
 
   return (
