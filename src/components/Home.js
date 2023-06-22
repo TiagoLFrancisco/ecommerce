@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import "./Home.css";
 
@@ -7,6 +8,8 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState("");
   const [sortBy, setSortBy] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
@@ -62,6 +65,13 @@ const Home = () => {
 
   const filteredAndSortedProducts = sortProducts(filterProductsByCategory());
 
+  const handleItemClick = (productId) => {
+    const selectedProduct = products.find(
+      (product) => product.id === productId
+    );
+    navigate(`/products/${productId}`, { state: selectedProduct });
+  };
+
   return (
     <div>
       <h1>Product List</h1>
@@ -89,7 +99,7 @@ const Home = () => {
 
       <ul>
         {filteredAndSortedProducts.map((product) => (
-          <li key={product.id}>
+          <li key={product.id} onClick={() => handleItemClick(product.id)}>
             <h3>{product.title}</h3>
             <p>Price: ${product.price}</p>
             <p>Popularity: {product.popularity} </p>
