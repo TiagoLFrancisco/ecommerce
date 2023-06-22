@@ -1,9 +1,14 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ProductDetail() {
   const location = useLocation();
   const selectedProduct = location.state;
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div>
@@ -23,6 +28,7 @@ function ProductDetail() {
               alt={selectedProduct.name}
             />
           </p>
+          <button onClick={handleGoBack}>Go Back</button>
         </div>
       )}
     </div>
