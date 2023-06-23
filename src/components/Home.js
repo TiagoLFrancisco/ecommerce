@@ -107,7 +107,7 @@ const Home = () => {
         {filteredAndSortedProducts.map((product) => (
           <li key={product.id} onClick={() => handleItemClick(product.id)}>
             <h3>{product.title}</h3>
-            <p>Price: ${product.price}</p>
+            <p>Price: {product.price} €</p>
             <p>Popularity: {product.popularity} </p>
             <p>Category: {product.category}</p>
             <p>Description: {product.description}</p>

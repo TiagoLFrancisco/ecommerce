@@ -31,13 +31,18 @@ function ProductDetail() {
     });
   };
 
+  const handleAddToCart = () => {
+    window.alert(`Congratulation! This item was added to your cart.`);
+    window.location.href = "/";
+  };
+
   return (
     <div>
       <h2>Product Detail</h2>
       {selectedProduct && (
         <div>
           <h3>{selectedProduct.title}</h3>
-          <p>Price: ${selectedProduct.price}</p>
+          <p>Price: {selectedProduct.price} €</p>
           <p>Description: {selectedProduct.description}</p>
           <p>
             <img
@@ -47,6 +52,7 @@ function ProductDetail() {
               alt={selectedProduct.name}
             />
           </p>
+          <button onClick={handleAddToCart}>Add to the cart</button>
           <p>Related products:</p>
           <p>
             {filteredRelatedProducts.map((product) => (
