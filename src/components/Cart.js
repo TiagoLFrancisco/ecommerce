@@ -50,6 +50,14 @@ function Cart() {
     }
   };
 
+  const calculateTotalAmount = () => {
+    const totalAmount = cartItems.reduce(
+      (total, item) => total + item.quantity * item.price,
+      0
+    );
+    return totalAmount.toFixed(2);
+  };
+
   return (
     <div>
       <h2>Cart</h2>
@@ -80,7 +88,7 @@ function Cart() {
         </div>
       ))}
 
-      <p>Total Amount: </p>
+      <p>Total Amount: {calculateTotalAmount()} €</p>
       <button>Check Out</button>
     </div>
   );
