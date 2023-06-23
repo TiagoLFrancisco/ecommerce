@@ -9,6 +9,7 @@ function CartTwo() {
   const [carts, setCarts] = useState([]);
   const [users, setUsers] = useState([]);
   const { id } = useParams();
+  const [updatedQuantities, setUpdatedQuantities] = useState({});
 
   useEffect(() => {
     fetchCartItems();
@@ -68,6 +69,15 @@ function CartTwo() {
     return [];
   };
 
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity >= 1 && newQuantity <= 99) {
+      setUpdatedQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [productId]: newQuantity,
+      }));
+    }
+  };
+
   const productsInCart = getProductsInCart();
 
   return (
@@ -94,7 +104,20 @@ function CartTwo() {
                     />{" "}
                     {product.title}
                     <p>Price: {product.price} €</p>
-                    <p>Quantity: {product.quantity}</p>
+                    <p>
+                      Quantity:{" "}
+                      <input
+                        type="number"
+                        min="1"
+                        max="99"
+                        value={
+                          updatedQuantities[product.id] || product.quantity
+                        }
+                        onChange={(e) =>
+                          updateQuantity(product.id, e.target.value)
+                        }
+                      />
+                    </p>
                   </div>
                 ))}
               </ul>
