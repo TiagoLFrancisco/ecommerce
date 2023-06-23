@@ -16,10 +16,22 @@ function Cart() {
       const response = await axios.get("https://fakestoreapi.com/products");
       const products = response.data;
 
-      setCartItems(products);
+      const randomProducts = getRandomProducts(products, 3);
+
+      const cartItems = randomProducts.map((product) => ({
+        ...product,
+        quantity: 1,
+      }));
+
+      setCartItems(cartItems);
     } catch (error) {
       console.error("Error fetching cart items:", error);
     }
+  };
+
+  const getRandomProducts = (products, count) => {
+    const shuffled = products.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
   };
 
   return (
