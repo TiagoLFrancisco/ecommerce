@@ -58,6 +58,16 @@ function Cart() {
     return totalAmount.toFixed(2);
   };
 
+  const handleCheckOut = () => {
+    const confirmCheckOut = window.confirm(
+      `Are you sure you want to check out? \nYour total is: ${calculateTotalAmount()} €`
+    );
+
+    if (confirmCheckOut) {
+      window.location.href = "/";
+    }
+  };
+
   return (
     <div>
       <h2>Cart</h2>
@@ -89,7 +99,7 @@ function Cart() {
       ))}
 
       <p>Total Amount: {calculateTotalAmount()} €</p>
-      <button>Check Out</button>
+      <button onClick={handleCheckOut}>Check Out</button>
     </div>
   );
 }
