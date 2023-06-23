@@ -34,6 +34,12 @@ function Cart() {
     return shuffled.slice(0, count);
   };
 
+  const deleteCartItem = (productId) => {
+    setCartItems((prevCartItems) =>
+      prevCartItems.filter((item) => item.id !== productId)
+    );
+  };
+
   return (
     <div>
       <h2>Cart</h2>
@@ -51,7 +57,7 @@ function Cart() {
           </p>
           <p>Price: {item.price} €</p>
           <p>Quantity:</p>
-          <button>Delete Item</button>
+          <button onClick={() => deleteCartItem(item.id)}>Delete Item</button>
         </div>
       ))}
 
