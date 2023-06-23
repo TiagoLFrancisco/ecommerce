@@ -40,6 +40,16 @@ function Cart() {
     );
   };
 
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity >= 1 && newQuantity <= 99) {
+      setCartItems((prevCartItems) =>
+        prevCartItems.map((item) =>
+          item.id === productId ? { ...item, quantity: newQuantity } : item
+        )
+      );
+    }
+  };
+
   return (
     <div>
       <h2>Cart</h2>
@@ -56,7 +66,16 @@ function Cart() {
             {item.title}
           </p>
           <p>Price: {item.price} €</p>
-          <p>Quantity:</p>
+          <p>
+            Quantity:{" "}
+            <input
+              type="number"
+              min="1"
+              max="99"
+              value={item.quantity}
+              onChange={(e) => updateQuantity(item.id, e.target.value)}
+            />
+          </p>
           <button onClick={() => deleteCartItem(item.id)}>Delete Item</button>
         </div>
       ))}
