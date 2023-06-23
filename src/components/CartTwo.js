@@ -53,14 +53,55 @@ function CartTwo() {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
+  const getProductsInCart = () => {
+    const cart = carts.find((cart) => cart.userId === parseInt(id));
+    if (cart) {
+      const productsInCart = cart.products.map((product) => {
+        const cartProduct = products.find((p) => p.id === product.productId);
+        return {
+          ...cartProduct,
+          quantity: product.quantity,
+        };
+      });
+      return productsInCart;
+    }
+    return [];
+  };
+
+  const productsInCart = getProductsInCart();
+
   return (
     <div>
+      <h1>Cart</h1>
+
       {user ? (
         <div>
           <h2>
             Hello {capitalizeFirstLetter(user.name.firstname)}{" "}
             {capitalizeFirstLetter(user.name.lastname)}!
           </h2>
+          {productsInCart.length > 0 ? (
+            <div>
+              <h3>Products in Cart:</h3>
+              <ul>
+                {productsInCart.map((product) => (
+                  <div key={product.id}>
+                    <img
+                      title={product.title}
+                      className="cart-item-image"
+                      src={product.image}
+                      alt={product.name}
+                    />{" "}
+                    {product.title}
+                    <p>Price: {product.price} €</p>
+                    <p>Quantity: {product.quantity}</p>
+                  </div>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div>No products in cart</div>
+          )}
         </div>
       ) : (
         <div>User not found</div>

@@ -7,7 +7,7 @@ import Cart from "./components/Cart";
 import CartTwo from "./components/CartTwo";
 
 function App() {
-  const randomId = Math.floor(Math.random() * 10) + 1;
+  const randomId = Math.floor(Math.random() * 4) + 1;
 
   return (
     <BrowserRouter>

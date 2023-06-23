@@ -70,8 +70,8 @@ function Cart() {
 
   return (
     <div>
-      <h2>Cart</h2>
-
+      <h1>Cart</h1>
+      <h3>Products in Cart:</h3>
       {cartItems.map((item) => (
         <div key={item.id}>
           <p>
@@ -80,7 +80,7 @@ function Cart() {
               className="cart-item-image"
               src={item.image}
               alt={item.name}
-            />
+            />{" "}
             {item.title}
           </p>
           <p>Price: {item.price} €</p>
