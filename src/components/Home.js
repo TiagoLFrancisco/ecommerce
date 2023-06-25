@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 import "./Home.css";
 
@@ -82,26 +87,44 @@ const Home = () => {
     <div>
       <h1>Product List</h1>
 
-      <div>
-        <label htmlFor="category"> Filter by Category: </label>
-        <select id="category" value={category} onChange={handleCategoryChange}>
-          <option value=""> Show All</option>
-          <option value="electronics"> Electronics</option>
-          <option value="jewelery"> Jewelery</option>
-          <option value="men's clothing"> Men's clothing</option>
-          <option value="women's clothing"> Women's clothing</option>
-        </select>
-      </div>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <FormControl sx={{ minWidth: 200 }}>
+          <InputLabel id="category-select-label">
+            Filter by Category:
+          </InputLabel>
+          <Select
+            labelId="category-select-label"
+            id="category-select"
+            value={category}
+            label="Filter by Category"
+            onChange={handleCategoryChange}
+          >
+            <MenuItem value="">Show All</MenuItem>
+            <MenuItem value="electronics">Electronics</MenuItem>
+            <MenuItem value="jewelery">Jewelery</MenuItem>
+            <MenuItem value="men's clothing">Men's clothing</MenuItem>
+            <MenuItem value="women's clothing">Women's clothing</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
 
-      <div>
-        <label htmlFor="sortBy"> Sort by: </label>
-        <select id="sortBy" value={sortBy} onChange={handleSortByChange}>
-          <option value=""> None</option>
-          <option value="priceLowToHigh"> Price: Low to high </option>
-          <option value="priceHighToLow"> Price: High to low </option>
-          <option value="popularity">Avg. Customer review </option>
-        </select>
-      </div>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <FormControl sx={{ minWidth: 200 }}>
+          <InputLabel id="sort-by-select-label">Sort by:</InputLabel>
+          <Select
+            labelId="sort-by-select-label"
+            id="sort-by-select"
+            value={sortBy}
+            label="Sort by"
+            onChange={handleSortByChange}
+          >
+            <MenuItem value="">Show All</MenuItem>
+            <MenuItem value="priceLowToHigh">Price: Low to high</MenuItem>
+            <MenuItem value="priceHighToLow">Price: High to low</MenuItem>
+            <MenuItem value="popularity">Avg. Customer review</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
 
       <ul>
         {filteredAndSortedProducts.map((product) => (
