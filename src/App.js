@@ -1,5 +1,7 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import * as React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Link from "@mui/material/Link";
 
 import Home from "./components/Home";
 import ProductDetail from "./components/ProductDetail";
@@ -13,18 +15,23 @@ function App() {
     <BrowserRouter>
       <div>
         <nav>
-          <ul style={{ display: "flex" }}>
-            <li style={{ marginRight: "40px" }}>
-              <Link to="/">Home</Link>
-            </li>
-            <li style={{ marginRight: "40px" }}>
-              <Link to="/cart">Cart</Link>
-            </li>
-            <li>
-              <Link to={`/cart_two/${randomId}`}>CartTwo</Link>
-            </li>
-          </ul>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" href="/">
+              Home
+            </Link>
+            <Link underline="hover" color="inherit" href="/cart">
+              Cart
+            </Link>
+            <Link
+              underline="hover"
+              color="inherit"
+              href={`/cart_two/${randomId}`}
+            >
+              CartTwo
+            </Link>
+          </Breadcrumbs>
         </nav>
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product_detail/:id" element={<ProductDetail />} />
