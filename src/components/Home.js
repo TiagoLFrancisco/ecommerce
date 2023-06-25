@@ -87,7 +87,7 @@ const Home = () => {
     <div>
       <h1>Product List</h1>
 
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box sx={{ display: "flex", justifyContent: "left" }}>
         <FormControl sx={{ minWidth: 200 }}>
           <InputLabel id="category-select-label">
             Filter by Category:
@@ -108,7 +108,7 @@ const Home = () => {
         </FormControl>
       </Box>
 
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box sx={{ display: "flex", justifyContent: "left" }}>
         <FormControl sx={{ minWidth: 200 }}>
           <InputLabel id="sort-by-select-label">Sort by:</InputLabel>
           <Select
