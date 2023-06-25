@@ -6,6 +6,9 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 import "./Home.css";
 
@@ -87,7 +90,9 @@ const Home = () => {
     <div>
       <h1>Product List</h1>
 
-      <Box sx={{ display: "flex", justifyContent: "left" }}>
+      <Box
+        sx={{ display: "flex", justifyContent: "left", marginBottom: "30px" }}
+      >
         <FormControl sx={{ minWidth: 200 }}>
           <InputLabel id="category-select-label">
             Filter by Category:
@@ -108,7 +113,9 @@ const Home = () => {
         </FormControl>
       </Box>
 
-      <Box sx={{ display: "flex", justifyContent: "left" }}>
+      <Box
+        sx={{ display: "flex", justifyContent: "left", marginBottom: "20px" }}
+      >
         <FormControl sx={{ minWidth: 200 }}>
           <InputLabel id="sort-by-select-label">Sort by:</InputLabel>
           <Select
@@ -126,25 +133,28 @@ const Home = () => {
         </FormControl>
       </Box>
 
-      <ul>
+      <List>
         {filteredAndSortedProducts.map((product) => (
-          <li key={product.id} onClick={() => handleItemClick(product.id)}>
-            <h3>{product.title}</h3>
-            <p>Price: {product.price} €</p>
-            <p>Popularity: {product.popularity} </p>
-            <p>Category: {product.category}</p>
-            <p>Description: {product.description}</p>
-            <p>
-              <img
-                title={product.title}
-                className="item-image"
-                src={product.image}
-                alt={product.name}
-              />
-            </p>
-          </li>
+          <ListItem
+            key={product.id}
+            onClick={() => handleItemClick(product.id)}
+          >
+            <ListItemText
+              primary={product.title}
+              secondary={
+                <img
+                  title={product.title}
+                  className="item-image"
+                  src={product.image}
+                  alt={product.name}
+                />
+              }
+            />
+            <ListItemText secondary={`Price: ${product.price} €`} />
+            <ListItemText secondary={`Popularity: ${product.popularity}`} />
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </div>
   );
 };
