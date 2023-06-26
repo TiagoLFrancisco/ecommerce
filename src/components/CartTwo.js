@@ -150,7 +150,7 @@ function CartTwo() {
   };
 
   return (
-    <div>
+    <div style={{ marginLeft: 15 }}>
       <Box>
         <Typography component="h1" variant="h4" marginTop={2}>
           Shopping Basket
@@ -178,11 +178,11 @@ function CartTwo() {
                 Please confirm your products:
               </Typography>
 
-              <List>
+              <List style={{ textAlign: "left", width: "98%" }}>
                 {productsInCart.map((product) => (
                   <ListItem key={product.id}>
                     <ListItemText
-                      sx={{ marginRight: 10 }}
+                      sx={{ marginRight: 5, width: 10 }}
                       primary={"Quantity: "}
                       secondary={
                         <TextField
@@ -199,24 +199,28 @@ function CartTwo() {
                       }
                     />
                     <ListItemText
-                      sx={{ marginRight: 10 }}
-                      primary={product.title}
-                      secondary={
+                      sx={{ marginRight: 5 }}
+                      primary={
                         <img
+                          width={100}
                           title={product.title}
-                          className="cart-item-image"
                           src={product.image}
                           alt={product.name}
                         />
                       }
+                      secundary={"Click to enlarge"}
                     />
                     <ListItemText
-                      sx={{ marginRight: 10 }}
+                      sx={{ marginRight: 5, width: 100 }}
+                      primary={product.title}
+                    />
+                    <ListItemText
+                      sx={{ marginRight: 5, width: 10 }}
                       primary={"Price: "}
                       secondary={`${product.price} €`}
                     />
                     <ListItemText
-                      sx={{ marginRight: 10 }}
+                      sx={{ marginRight: 5, width: 10 }}
                       primary={"Total price: "}
                       secondary={`${(product.price * product.quantity).toFixed(
                         2
@@ -263,7 +267,11 @@ function CartTwo() {
           )}
         </div>
       ) : (
-        <div>User not found</div>
+        <div style={{ marginTop: "30px" }}>
+          <Typography component="span" variant="body1">
+            Ops! User not found!
+          </Typography>
+        </div>
       )}
     </div>
   );
