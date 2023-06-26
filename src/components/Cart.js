@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 import "./Cart.css";
+import { List, ListItem, ListItemText } from "@mui/material";
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -70,36 +74,60 @@ function Cart() {
 
   return (
     <div>
-      <h1>Cart</h1>
-      <h3>Products in Cart:</h3>
-      {cartItems.map((item) => (
-        <div key={item.id}>
-          <p>
-            <img
-              title={item.title}
-              className="cart-item-image"
-              src={item.image}
-              alt={item.name}
-            />{" "}
-            {item.title}
-          </p>
-          <p>Price: {item.price} €</p>
-          <p>
-            Quantity:{" "}
-            <input
-              type="number"
-              min="1"
-              max="99"
-              value={item.quantity}
-              onChange={(e) => updateQuantity(item.id, e.target.value)}
-            />
-          </p>
-          <button onClick={() => deleteCartItem(item.id)}>Delete Item</button>
-        </div>
-      ))}
+      <Typography component="h1" variant="h3">
+        Cart
+      </Typography>
+      <Typography component="h2" variant="h5">
+        Shopping Cart:
+      </Typography>
 
-      <p>Total Amount: {calculateTotalAmount()} €</p>
-      <button onClick={handleCheckOut}>Check Out</button>
+      <List>
+        {cartItems.map((item) => (
+          <ListItem key={item.id}>
+            <ListItemText
+              primary={"Quantity: "}
+              secondary={
+                <TextField
+                  type="number"
+                  inputProps={{
+                    min: 1,
+                    max: 99,
+                  }}
+                  value={item.quantity}
+                  onChange={(e) => updateQuantity(item.id, e.target.value)}
+                />
+              }
+            />
+            <ListItemText
+              primary={item.title}
+              secondary={
+                <img
+                  title={item.title}
+                  className="cart-item-image"
+                  src={item.image}
+                  alt={item.name}
+                />
+              }
+            />
+            <ListItemText primary={"Price: "} secondary={`${item.price} €`} />
+            <Button onClick={() => deleteCartItem(item.id)} variant="outlined">
+              Delete Item
+            </Button>
+          </ListItem>
+        ))}
+      </List>
+
+      <Typography component="h2" variant="h5">
+        Subtotal{" "}
+        <Typography component="span" variant="body1">
+          (3 items):
+        </Typography>{" "}
+        {calculateTotalAmount()} €
+      </Typography>
+
+      <Button onClick={handleCheckOut} variant="outlined">
+        Check Out
+      </Button>
     </div>
   );
 }
