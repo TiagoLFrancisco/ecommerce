@@ -6,7 +6,7 @@ import Link from "@mui/material/Link";
 import Home from "./components/Home";
 import ProductDetail from "./components/ProductDetail";
 
-import CartTwo from "./components/CartTwo";
+import Cart from "./components/Cart";
 
 function App() {
   const randomId = Math.floor(Math.random() * 4) + 1;
@@ -34,7 +34,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/product_detail/:id" element={<ProductDetail />} />
 
-          <Route path="/shopping_basket/:id" element={<CartTwo />} />
+          <Route path="/shopping_basket/:id" element={<Cart />} />
         </Routes>
       </div>
     </BrowserRouter>
