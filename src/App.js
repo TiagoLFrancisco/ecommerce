@@ -5,7 +5,7 @@ import Link from "@mui/material/Link";
 
 import Home from "./components/Home";
 import ProductDetail from "./components/ProductDetail";
-import Cart from "./components/Cart";
+
 import CartTwo from "./components/CartTwo";
 
 function App() {
@@ -19,15 +19,13 @@ function App() {
             <Link underline="hover" color="inherit" href="/">
               Home
             </Link>
-            <Link underline="hover" color="inherit" href="/cart">
-              Cart
-            </Link>
+
             <Link
               underline="hover"
               color="inherit"
-              href={`/cart_two/${randomId}`}
+              href={`/shopping_basket/${randomId}`}
             >
-              CartTwo
+              Shopping Basket
             </Link>
           </Breadcrumbs>
         </nav>
@@ -35,8 +33,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product_detail/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/cart_two/:id" element={<CartTwo />} />
+
+          <Route path="/shopping_basket/:id" element={<CartTwo />} />
         </Routes>
       </div>
     </BrowserRouter>

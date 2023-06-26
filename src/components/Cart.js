@@ -74,17 +74,18 @@ function Cart() {
 
   return (
     <div>
-      <Typography component="h1" variant="h3">
+      <Typography component="h1" variant="h3" marginTop={1}>
         Cart
       </Typography>
-      <Typography component="h2" variant="h5">
+      <Typography component="h2" variant="h5" marginTop={4}>
         Shopping Cart:
       </Typography>
 
-      <List>
+      <List style={{ marginLeft: 20, textAlign: "left", width: "90%" }}>
         {cartItems.map((item) => (
           <ListItem key={item.id}>
             <ListItemText
+              sx={{ marginRight: 10, width: 30 }}
               primary={"Quantity: "}
               secondary={
                 <TextField
@@ -99,8 +100,8 @@ function Cart() {
               }
             />
             <ListItemText
-              primary={item.title}
-              secondary={
+              sx={{ marginRight: 10, width: 60 }}
+              primary={
                 <img
                   title={item.title}
                   className="cart-item-image"
@@ -109,7 +110,15 @@ function Cart() {
                 />
               }
             />
-            <ListItemText primary={"Price: "} secondary={`${item.price} €`} />
+            <ListItemText
+              sx={{ marginRight: 10, width: 150 }}
+              primary={item.title}
+            />
+            <ListItemText
+              primary={"Price: "}
+              secondary={`${item.price} €`}
+              sx={{ marginRight: 10, width: 30 }}
+            />
             <Button onClick={() => deleteCartItem(item.id)} variant="outlined">
               Delete Item
             </Button>
