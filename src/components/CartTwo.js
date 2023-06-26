@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 import "./Cart.css";
+import { List, ListItem, ListItemText } from "@mui/material";
 
 function CartTwo() {
   const [products, setProducts] = useState([]);
   const [carts, setCarts] = useState([]);
   const [users, setUsers] = useState([]);
   const { id } = useParams();
-  const [updatedQuantities, setUpdatedQuantities] = useState({});
 
   useEffect(() => {
     fetchCartItems();
@@ -69,58 +73,129 @@ function CartTwo() {
     return [];
   };
 
+  const productsInCart = getProductsInCart();
+
   const updateQuantity = (productId, newQuantity) => {
-    if (newQuantity >= 1 && newQuantity <= 99) {
-      setUpdatedQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [productId]: newQuantity,
-      }));
+    // todo
+  };
+
+  const deleteCartItem = (productId) => {
+    const updatedCartItems = productsInCart.filter(
+      (item) => item.id !== productId
+    );
+    const updatedCarts = carts.map((cart) => {
+      if (cart.userId === parseInt(id)) {
+        return {
+          ...cart,
+          products: updatedCartItems.map((item) => ({
+            productId: item.id,
+            quantity: item.quantity,
+          })),
+        };
+      }
+      return cart;
+    });
+    setCarts(updatedCarts);
+  };
+
+  const calculateTotalAmount = () => {
+    // todo
+  };
+
+  const handleCheckOut = () => {
+    const confirmCheckOut = window.confirm(
+      `Are you sure you want to check out? \nYour total is: ${calculateTotalAmount()} €`
+    );
+
+    if (confirmCheckOut) {
+      window.location.href = "/";
     }
   };
 
-  const productsInCart = getProductsInCart();
-
   return (
     <div>
-      <h1>Cart</h1>
+      <Box>
+        <Typography component="h1" variant="h4" marginTop={2}>
+          Shopping Basket
+        </Typography>
+      </Box>
 
       {user ? (
         <div>
-          <h2>
-            Hello {capitalizeFirstLetter(user.name.firstname)}{" "}
-            {capitalizeFirstLetter(user.name.lastname)}!
-          </h2>
+          <Box>
+            <Typography component="h2" variant="h5" marginTop={4}>
+              Hey {capitalizeFirstLetter(user.name.firstname)}{" "}
+              {capitalizeFirstLetter(user.name.lastname)}!
+            </Typography>
+          </Box>
+
+          <Box marginTop={1} marginBottom={4}>
+            <Typography component="span" variant="body1">
+              Are you ready to checkout?
+            </Typography>
+          </Box>
+
           {productsInCart.length > 0 ? (
             <div>
-              <h3>Products in Cart:</h3>
-              <ul>
+              <Typography component="span" variant="body1">
+                Please confirm your products:
+              </Typography>
+
+              <List>
                 {productsInCart.map((product) => (
-                  <div key={product.id}>
-                    <img
-                      title={product.title}
-                      className="cart-item-image"
-                      src={product.image}
-                      alt={product.name}
-                    />{" "}
-                    {product.title}
-                    <p>Price: {product.price} €</p>
-                    <p>
-                      Quantity:{" "}
-                      <input
-                        type="number"
-                        min="1"
-                        max="99"
-                        value={
-                          updatedQuantities[product.id] || product.quantity
-                        }
-                        onChange={(e) =>
-                          updateQuantity(product.id, e.target.value)
-                        }
-                      />
-                    </p>
-                  </div>
+                  <ListItem key={product.id}>
+                    <ListItemText
+                      primary={"Quantity: "}
+                      secondary={
+                        <TextField
+                          type="number"
+                          inputProps={{
+                            min: 1,
+                            max: 99,
+                          }}
+                          value={product.quantity}
+                          onChange={(e) =>
+                            updateQuantity(product.id, e.target.value)
+                          }
+                        />
+                      }
+                    />
+                    <ListItemText
+                      primary={product.title}
+                      secondary={
+                        <img
+                          title={product.title}
+                          className="cart-item-image"
+                          src={product.image}
+                          alt={product.name}
+                        />
+                      }
+                    />
+                    <ListItemText
+                      primary={"Price: "}
+                      secondary={`${product.price} €`}
+                    />
+                    <Button
+                      onClick={() => deleteCartItem(product.id)}
+                      variant="outlined"
+                    >
+                      Delete Item
+                    </Button>
+                  </ListItem>
                 ))}
-              </ul>
+              </List>
+
+              <Typography component="h2" variant="h5">
+                Subtotal{" "}
+                <Typography component="span" variant="body1">
+                  (nº items):
+                </Typography>{" "}
+                {calculateTotalAmount()} nº €
+              </Typography>
+
+              <Button onClick={handleCheckOut} variant="outlined">
+                Check Out
+              </Button>
             </div>
           ) : (
             <div>No products in cart</div>
