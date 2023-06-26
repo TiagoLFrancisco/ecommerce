@@ -76,7 +76,28 @@ function CartTwo() {
   const productsInCart = getProductsInCart();
 
   const updateQuantity = (productId, newQuantity) => {
-    // todo
+    const updatedProducts = productsInCart.map((product) => {
+      if (product.id === productId) {
+        return {
+          ...product,
+          quantity: parseInt(newQuantity),
+        };
+      }
+      return product;
+    });
+    const updatedCarts = carts.map((cart) => {
+      if (cart.userId === parseInt(id)) {
+        return {
+          ...cart,
+          products: updatedProducts.map((product) => ({
+            productId: product.id,
+            quantity: product.quantity,
+          })),
+        };
+      }
+      return cart;
+    });
+    setCarts(updatedCarts);
   };
 
   const deleteCartItem = (productId) => {
@@ -98,18 +119,34 @@ function CartTwo() {
     setCarts(updatedCarts);
   };
 
-  const calculateTotalAmount = () => {
-    // todo
+  const calculateSubtotal = () => {
+    let subtotal = 0;
+    productsInCart.forEach((product) => {
+      subtotal += product.price * product.quantity;
+    });
+    return subtotal.toFixed(2);
   };
 
   const handleCheckOut = () => {
     const confirmCheckOut = window.confirm(
-      `Are you sure you want to check out? \nYour total is: ${calculateTotalAmount()} €`
+      `Are you sure you want to check out? \nYour total is: ${calculateSubtotal()} €`
     );
 
     if (confirmCheckOut) {
       window.location.href = "/";
     }
+  };
+
+  const handleGoBack = () => {
+    window.location.href = "/";
+  };
+
+  const getTotalQuantity = () => {
+    let totalQuantity = 0;
+    productsInCart.forEach((product) => {
+      totalQuantity += product.quantity;
+    });
+    return totalQuantity;
   };
 
   return (
@@ -145,6 +182,7 @@ function CartTwo() {
                 {productsInCart.map((product) => (
                   <ListItem key={product.id}>
                     <ListItemText
+                      sx={{ marginRight: 10 }}
                       primary={"Quantity: "}
                       secondary={
                         <TextField
@@ -161,6 +199,7 @@ function CartTwo() {
                       }
                     />
                     <ListItemText
+                      sx={{ marginRight: 10 }}
                       primary={product.title}
                       secondary={
                         <img
@@ -172,8 +211,16 @@ function CartTwo() {
                       }
                     />
                     <ListItemText
+                      sx={{ marginRight: 10 }}
                       primary={"Price: "}
                       secondary={`${product.price} €`}
+                    />
+                    <ListItemText
+                      sx={{ marginRight: 10 }}
+                      primary={"Total price: "}
+                      secondary={`${(product.price * product.quantity).toFixed(
+                        2
+                      )} €`}
                     />
                     <Button
                       onClick={() => deleteCartItem(product.id)}
@@ -185,20 +232,34 @@ function CartTwo() {
                 ))}
               </List>
 
-              <Typography component="h2" variant="h5">
+              <Typography component="h2" variant="h5" sx={{ marginTop: 3 }}>
                 Subtotal{" "}
                 <Typography component="span" variant="body1">
-                  (nº items):
+                  ({getTotalQuantity()} items):
                 </Typography>{" "}
-                {calculateTotalAmount()} nº €
+                {calculateSubtotal()} €
               </Typography>
 
-              <Button onClick={handleCheckOut} variant="outlined">
+              <Button
+                onClick={handleCheckOut}
+                variant="outlined"
+                sx={{ marginTop: 3 }}
+              >
                 Check Out
               </Button>
             </div>
           ) : (
-            <div>No products in cart</div>
+            <div>
+              <p>
+                <Typography component="span" variant="body1">
+                  Ops! No products in cart!
+                </Typography>
+              </p>
+
+              <Button onClick={handleGoBack} variant="outlined">
+                Back to Products
+              </Button>
+            </div>
           )}
         </div>
       ) : (
