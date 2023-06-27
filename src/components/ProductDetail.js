@@ -4,6 +4,7 @@ import List from "@mui/material/List";
 import { ListItem } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
+import "./ProductDetail.css";
 
 function ProductDetail() {
   const location = useLocation();
@@ -45,20 +46,20 @@ function ProductDetail() {
   };
 
   return (
-    <div>
+    <div style={{ marginLeft: 15 }}>
       <h2>Product Detail</h2>
 
       {selectedProduct && (
         <div>
-          <List>
+          <List style={{ textAlign: "left", width: "98%" }}>
             <ListItem
               key={selectedProduct.id}
               onClick={() => handleSelectedProductClick}
+              className="list-item"
             >
               <ListItemText
-                sx={{ marginRight: 10 }}
-                primary={selectedProduct.title}
-                secondary={
+                sx={{ marginRight: 10, whiteSpace: "nowrap" }}
+                primary={
                   <img
                     title={selectedProduct.title}
                     className="item-image"
@@ -66,14 +67,20 @@ function ProductDetail() {
                     alt={selectedProduct.name}
                   />
                 }
+                secondary={`Click to enlarge`}
               />
               <ListItemText
-                sx={{ marginRight: 10 }}
+                sx={{ marginRight: 5, maxWidth: 700, minWidth: 100 }}
+                primary={`Product: `}
+                secondary={selectedProduct.title}
+              />
+              <ListItemText
+                sx={{ marginRight: 10, whiteSpace: "nowrap" }}
                 primary={`Price:`}
                 secondary={`${selectedProduct.price} €`}
               />
               <ListItemText
-                sx={{ marginRight: 10 }}
+                sx={{ marginRight: 5, minWidth: 200 }}
                 primary={`Description:`}
                 secondary={selectedProduct.description}
               />

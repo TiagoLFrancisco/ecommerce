@@ -208,7 +208,6 @@ function Cart() {
                           alt={product.name}
                         />
                       }
-                      secundary={"Click to enlarge"}
                     />
                     <ListItemText
                       sx={{ marginRight: 5, width: 100 }}
