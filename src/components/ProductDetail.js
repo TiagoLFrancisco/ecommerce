@@ -47,7 +47,7 @@ function ProductDetail() {
   };
 
   return (
-    <Box style={{ marginLeft: 15 }}>
+    <Box sx={{ marginLeft: 2 }}>
       <Box>
         <Typography component="h1" variant="h4" marginTop={2} marginBottom={2}>
           Product Detail

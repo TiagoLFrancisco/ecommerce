@@ -88,7 +88,7 @@ const Home = () => {
   };
 
   return (
-    <div style={{ marginLeft: 15 }}>
+    <Box sx={{ marginLeft: 2 }}>
       <Box>
         <Typography component="h1" variant="h4" marginTop={2} marginBottom={3}>
           Product List
@@ -200,7 +200,7 @@ const Home = () => {
           </ListItem>
         ))}
       </List>
-    </div>
+    </Box>
   );
 };
 
