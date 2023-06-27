@@ -24,8 +24,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Deployment
 
-npm install -g serve
-serve -s build
+npm install -g serve\
+serve -s build\
 serve -h
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
