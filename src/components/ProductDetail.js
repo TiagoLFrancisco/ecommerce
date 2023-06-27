@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import "./ProductDetail.css";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 function ProductDetail() {
   const location = useLocation();
@@ -45,46 +47,97 @@ function ProductDetail() {
   };
 
   return (
-    <div style={{ marginLeft: 15 }}>
-      <h2>Product Detail</h2>
+    <Box style={{ marginLeft: 15 }}>
+      <Box>
+        <Typography component="h1" variant="h4" marginTop={2} marginBottom={2}>
+          Product Detail
+        </Typography>
+      </Box>
 
       {selectedProduct && (
-        <div>
-          <List style={{ textAlign: "left", width: "98%" }}>
-            <ListItem
-              key={selectedProduct.id}
-              onClick={() => setOpenLightBox(true)}
-              className="list-item"
-            >
-              <ListItemText
-                sx={{ marginRight: 10, whiteSpace: "nowrap" }}
-                primary={
-                  <img
-                    title={selectedProduct.title}
-                    className="item-image"
-                    src={selectedProduct.image}
-                    alt={selectedProduct.name}
-                  />
-                }
-                secondary={`Click to enlarge`}
-              />
-              <ListItemText
-                sx={{ marginRight: 5, maxWidth: 700, minWidth: 100 }}
-                primary={`Product: `}
-                secondary={selectedProduct.title}
-              />
-              <ListItemText
-                sx={{ marginRight: 10, whiteSpace: "nowrap" }}
-                primary={`Price:`}
-                secondary={`${selectedProduct.price} €`}
-              />
-              <ListItemText
-                sx={{ marginRight: 5, minWidth: 200 }}
-                primary={`Description:`}
-                secondary={selectedProduct.description}
-              />
-            </ListItem>
-          </List>
+        <Box>
+          <Box>
+            <List sx={{ marginRight: "2%" }}>
+              <ListItem
+                key={selectedProduct.id}
+                onClick={() => setOpenLightBox(true)}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  "&:hover": {
+                    border: "1px solid #000",
+                    borderRadius: "10px",
+                  },
+                }}
+              >
+                <ListItemText
+                  sx={{
+                    width: "40%",
+                    minWidth: "20%",
+                    marginBottom: 2,
+                  }}
+                  primaryTypographyProps={{
+                    align: "center",
+                  }}
+                  secondaryTypographyProps={{
+                    align: "center",
+                  }}
+                  primary={
+                    <img
+                      title={selectedProduct.title}
+                      width={150}
+                      src={selectedProduct.image}
+                      alt={selectedProduct.name}
+                    />
+                  }
+                  secondary={`Click to enlarge`}
+                />
+                <ListItemText
+                  sx={{ width: "30%" }}
+                  primaryTypographyProps={{
+                    align: "center",
+                  }}
+                  secondaryTypographyProps={{
+                    align: "center",
+                  }}
+                  primary={`Product: `}
+                  secondary={selectedProduct.title}
+                />
+                <ListItemText
+                  sx={{ width: "20%" }}
+                  primaryTypographyProps={{
+                    align: "center",
+                  }}
+                  secondaryTypographyProps={{
+                    align: "center",
+                  }}
+                  primary={`Price:`}
+                  secondary={`${selectedProduct.price} €`}
+                />
+                <ListItemText
+                  sx={{ width: "90%" }}
+                  primaryTypographyProps={{
+                    align: "center",
+                  }}
+                  secondaryTypographyProps={{
+                    align: "center",
+                  }}
+                  primary={`Description:`}
+                  secondary={selectedProduct.description}
+                />
+              </ListItem>
+            </List>
+            <Box marginBottom={4}>
+              <Button
+                onClick={handleAddToCart}
+                variant="outlined"
+                sx={{ marginLeft: "7%" }}
+              >
+                Add to the cart
+              </Button>
+            </Box>
+          </Box>
+
           <Lightbox
             open={openLightBox}
             close={() => setOpenLightBox(false)}
@@ -94,28 +147,58 @@ function ProductDetail() {
               },
             ]}
           />
-          <div>
-            <Button onClick={handleAddToCart} variant="outlined">
-              Add to the cart
-            </Button>
-          </div>
 
-          <div>
-            <Button onClick={handleGoBack} variant="outlined">
-              Back to Products
-            </Button>
-          </div>
+          <Box>
+            <Typography
+              component="h2"
+              variant="h5"
+              marginBottom={1}
+              marginLeft={2}
+            >
+              Not quite what you're looking for? Don't worry:{" "}
+              <Button
+                onClick={handleGoBack}
+                variant="outlined"
+                sx={{ marginLeft: 2, marginBottom: 1 }}
+              >
+                Continue Shopping!
+              </Button>
+            </Typography>
+          </Box>
 
-          <h2>Related Products</h2>
+          <Box>
+            <Typography component="h2" variant="h6" marginLeft={2}>
+              Before you go, check our related products!
+            </Typography>
+          </Box>
 
-          <List>
+          <List
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+            }}
+          >
             {filteredRelatedProducts.map((product) => (
               <ListItem
                 key={product.id}
                 onClick={() => handleItemClick(product.id)}
+                sx={{
+                  "&:hover": {
+                    border: "1px solid #000",
+                    borderRadius: "10px",
+                  },
+                }}
               >
                 <ListItemText
-                  sx={{ marginRight: 10 }}
+                  sx={{ marginBottom: 2 }}
+                  primaryTypographyProps={{
+                    align: "left",
+                    marginBottom: 1,
+                  }}
+                  secondaryTypographyProps={{
+                    align: "center",
+                  }}
                   primary={product.title}
                   secondary={
                     <img
@@ -131,9 +214,9 @@ function ProductDetail() {
               </ListItem>
             ))}
           </List>
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }
 

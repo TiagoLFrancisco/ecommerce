@@ -150,7 +150,7 @@ function Cart() {
   };
 
   return (
-    <div style={{ marginLeft: 15 }}>
+    <Box style={{ marginLeft: 15 }}>
       <Box>
         <Typography component="h1" variant="h4" marginTop={2}>
           Shopping Basket
@@ -158,10 +158,10 @@ function Cart() {
       </Box>
 
       {user ? (
-        <div>
+        <Box>
           <Box>
             <Typography component="h2" variant="h5" marginTop={4}>
-              Hey {capitalizeFirstLetter(user.name.firstname)}{" "}
+              Hello {capitalizeFirstLetter(user.name.firstname)}{" "}
               {capitalizeFirstLetter(user.name.lastname)}!
             </Typography>
           </Box>
@@ -171,18 +171,39 @@ function Cart() {
               Are you ready to checkout?
             </Typography>
           </Box>
+          <Typography component="span" variant="body1">
+            Please confirm your purchase:
+          </Typography>
 
           {productsInCart.length > 0 ? (
-            <div>
-              <Typography component="span" variant="body1">
-                Please confirm your products:
-              </Typography>
-
-              <List style={{ textAlign: "left", width: "98%" }}>
+            <Box>
+              <List
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                  width: "80%",
+                }}
+              >
                 {productsInCart.map((product) => (
-                  <ListItem key={product.id}>
+                  <ListItem
+                    key={product.id}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "100%",
+                      marginBottom: 2,
+                    }}
+                  >
                     <ListItemText
-                      sx={{ marginRight: 5, width: 10 }}
+                      sx={{ minWidth: "20%" }}
+                      primaryTypographyProps={{
+                        align: "center",
+                        marginBottom: 1,
+                      }}
+                      secondaryTypographyProps={{
+                        align: "center",
+                      }}
                       primary={"Quantity: "}
                       secondary={
                         <TextField
@@ -199,27 +220,49 @@ function Cart() {
                       }
                     />
                     <ListItemText
-                      sx={{ marginRight: 5, width: 10 }}
+                      sx={{ minWidth: "20%" }}
+                      primaryTypographyProps={{
+                        align: "center",
+                      }}
                       primary={
-                        <img
-                          width={100}
-                          title={product.title}
-                          src={product.image}
-                          alt={product.name}
-                        />
+                        <Box>
+                          <img
+                            width={"50%"}
+                            title={product.title}
+                            src={product.image}
+                            alt={product.name}
+                          />
+                        </Box>
                       }
                     />
                     <ListItemText
-                      sx={{ marginRight: 5, width: 100 }}
+                      sx={{ minWidth: "25%" }}
+                      primaryTypographyProps={{
+                        align: "center",
+                      }}
                       primary={product.title}
                     />
                     <ListItemText
-                      sx={{ marginRight: 5, width: 10 }}
+                      sx={{ minWidth: "10%" }}
+                      primaryTypographyProps={{
+                        align: "center",
+                        marginBottom: 1,
+                      }}
+                      secondaryTypographyProps={{
+                        align: "center",
+                      }}
                       primary={"Price: "}
                       secondary={`${product.price} €`}
                     />
                     <ListItemText
-                      sx={{ marginRight: 5, width: 10 }}
+                      sx={{ minWidth: "15%" }}
+                      primaryTypographyProps={{
+                        align: "center",
+                        marginBottom: 1,
+                      }}
+                      secondaryTypographyProps={{
+                        align: "center",
+                      }}
                       primary={"Total price: "}
                       secondary={`${(product.price * product.quantity).toFixed(
                         2
@@ -228,6 +271,7 @@ function Cart() {
                     <Button
                       onClick={() => deleteCartItem(product.id)}
                       variant="outlined"
+                      sx={{ minWidth: "20%" }}
                     >
                       Delete Item
                     </Button>
@@ -250,9 +294,9 @@ function Cart() {
               >
                 Check Out
               </Button>
-            </div>
+            </Box>
           ) : (
-            <div>
+            <Box>
               <p>
                 <Typography component="span" variant="body1">
                   Ops! No products in cart!
@@ -262,17 +306,17 @@ function Cart() {
               <Button onClick={handleGoBack} variant="outlined">
                 Back to Products
               </Button>
-            </div>
+            </Box>
           )}
-        </div>
+        </Box>
       ) : (
-        <div style={{ marginTop: "30px" }}>
+        <Box style={{ marginTop: "30px" }}>
           <Typography component="span" variant="body1">
             Ops! User not found!
           </Typography>
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }
 

@@ -9,6 +9,7 @@ import Select from "@mui/material/Select";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
 
 import "./Home.css";
 
@@ -87,8 +88,12 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <h1>Product List</h1>
+    <div style={{ marginLeft: 15 }}>
+      <Box>
+        <Typography component="h1" variant="h4" marginTop={2} marginBottom={3}>
+          Product List
+        </Typography>
+      </Box>
 
       <Box
         sx={{ display: "flex", justifyContent: "left", marginBottom: "30px" }}
@@ -145,7 +150,7 @@ const Home = () => {
               justifyContent: "space-between",
               "&:hover": {
                 border: "1px solid #000",
-                borderRadius: "4px",
+                borderRadius: "10px",
               },
             }}
             key={product.id}
@@ -155,7 +160,6 @@ const Home = () => {
               sx={{ width: "50%", marginBottom: 2 }}
               primaryTypographyProps={{
                 align: "center",
-
                 marginBottom: 1,
               }}
               secondaryTypographyProps={{
