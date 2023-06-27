@@ -93,7 +93,7 @@ const Home = () => {
       <Box
         sx={{ display: "flex", justifyContent: "left", marginBottom: "30px" }}
       >
-        <FormControl sx={{ minWidth: 200 }}>
+        <FormControl sx={{ minWidth: 210 }}>
           <InputLabel id="category-select-label">
             Filter by Category:
           </InputLabel>
@@ -116,7 +116,7 @@ const Home = () => {
       <Box
         sx={{ display: "flex", justifyContent: "left", marginBottom: "20px" }}
       >
-        <FormControl sx={{ minWidth: 200 }}>
+        <FormControl sx={{ minWidth: 210 }}>
           <InputLabel id="sort-by-select-label">Sort by:</InputLabel>
           <Select
             labelId="sort-by-select-label"
@@ -133,13 +133,34 @@ const Home = () => {
         </FormControl>
       </Box>
 
-      <List>
+      <List
+        sx={{
+          width: "85%",
+        }}
+      >
         {filteredAndSortedProducts.map((product) => (
           <ListItem
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              "&:hover": {
+                border: "1px solid #000",
+                borderRadius: "4px",
+              },
+            }}
             key={product.id}
             onClick={() => handleItemClick(product.id)}
           >
             <ListItemText
+              sx={{ width: "50%", marginBottom: 2 }}
+              primaryTypographyProps={{
+                align: "center",
+
+                marginBottom: 1,
+              }}
+              secondaryTypographyProps={{
+                align: "center",
+              }}
               primary={product.title}
               secondary={
                 <img
@@ -150,8 +171,28 @@ const Home = () => {
                 />
               }
             />
-            <ListItemText secondary={`Price: ${product.price} €`} />
-            <ListItemText secondary={`Popularity: ${product.popularity}`} />
+            <ListItemText
+              sx={{ width: "25%" }}
+              primaryTypographyProps={{
+                align: "center",
+              }}
+              secondaryTypographyProps={{
+                align: "center",
+              }}
+              primary={`Price:`}
+              secondary={` ${product.price} €`}
+            />
+            <ListItemText
+              sx={{ width: "25%" }}
+              primaryTypographyProps={{
+                align: "center",
+              }}
+              secondaryTypographyProps={{
+                align: "center",
+              }}
+              primary={`Popularity:`}
+              secondary={`${product.popularity}`}
+            />
           </ListItem>
         ))}
       </List>
