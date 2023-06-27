@@ -4,12 +4,15 @@ import List from "@mui/material/List";
 import { ListItem } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 import "./ProductDetail.css";
 
 function ProductDetail() {
   const location = useLocation();
   const { selectedProduct, relatedProducts, products } = location.state;
   const navigate = useNavigate();
+  const [openLightBox, setOpenLightBox] = React.useState(false);
 
   const handleGoBack = () => {
     navigate("/");
@@ -41,10 +44,6 @@ function ProductDetail() {
     window.location.href = "/";
   };
 
-  const handleSelectedProductClick = () => {
-    //do open lightbox
-  };
-
   return (
     <div style={{ marginLeft: 15 }}>
       <h2>Product Detail</h2>
@@ -54,7 +53,7 @@ function ProductDetail() {
           <List style={{ textAlign: "left", width: "98%" }}>
             <ListItem
               key={selectedProduct.id}
-              onClick={() => handleSelectedProductClick}
+              onClick={() => setOpenLightBox(true)}
               className="list-item"
             >
               <ListItemText
@@ -86,6 +85,15 @@ function ProductDetail() {
               />
             </ListItem>
           </List>
+          <Lightbox
+            open={openLightBox}
+            close={() => setOpenLightBox(false)}
+            slides={[
+              {
+                src: selectedProduct.image,
+              },
+            ]}
+          />
           <div>
             <Button onClick={handleAddToCart} variant="outlined">
               Add to the cart
