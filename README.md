@@ -1,3 +1,19 @@
+Make sure you have Node.js installed on your machine. You can download it from the official website (https://nodejs.org) 
+
+The build folder contains the production-ready build of your app.
+
+If you dont have a build run:
+### `npm install` 
+### `npm run build` 
+
+Open your IDE and navigate to the build folder.
+
+To instal serve, run:
+### `npm install -g serve` 
+
+To start the app, run:
+### `serve -s`
+
 In the project directory, you can run:
 
 ### `npm install`
