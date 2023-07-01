@@ -65,21 +65,80 @@ const ProductCard = ({
     </ListItem>
 );
 
-const ProductList = ({ products, handleItemClick }) => {
-    return (
-        <List
-            sx={{
-                width: '85%'
-            }}
+const ProductList = ({ products, handleItemClick }) => (
+    <List
+        sx={{
+            width: '85%'
+        }}
+    >
+        {products.map(product => (
+            <ProductCard
+                key={product.id}
+                product={product}
+                handleItemClick={handleItemClick}
+            ></ProductCard>
+        ))}
+    </List>
+);
+
+const InputSelector = ({ currentValue, handleChange, items, options: { labelId, id, label } }) => (
+    <FormControl sx={{ minWidth: 210 }}>
+        <InputLabel id={labelId}>{`${label}:`}</InputLabel>
+        <Select
+            labelId={labelId}
+            id={id}
+            value={currentValue}
+            label={label}
+            onChange={handleChange}
         >
-            {products.map(product => (
-                <ProductCard
-                    key={product.id}
-                    product={product}
-                    handleItemClick={handleItemClick}
-                ></ProductCard>
-            ))}
-        </List>
+            {items.map(({ value, text }) => {
+                return <MenuItem value={value}>{text}</MenuItem>;
+            })}
+        </Select>
+    </FormControl>
+);
+
+const CategorySelector = ({ currentValue, handleSelection }) => {
+    const categoryItems = [
+        { value: '', text: 'Show All' },
+        { value: 'electronics', text: 'Electronics' },
+        { value: 'jewelery', text: 'Jewelery' },
+        { value: "men's clothing", text: "Men's clothing" },
+        { value: "women's clothing", text: "women's clothing" }
+    ];
+
+    return (
+        <InputSelector
+            currentValue={currentValue}
+            handleChange={handleSelection}
+            items={categoryItems}
+            options={{
+                labelId: 'category-select-label',
+                id: 'category-select',
+                label: 'Filter By Category'
+            }}
+        ></InputSelector>
+    );
+};
+
+const SortBySelector = ({ currentValue, handleSelection }) => {
+    const sortByItems = [
+        { value: '', text: 'Show All' },
+        { value: 'priceLowToHigh', text: 'Price: Low to high' },
+        { value: 'priceHighToLow', text: 'Price: High to low' },
+        { value: 'popularity', text: 'Avg.Customer review' }
+    ];
+    return (
+        <InputSelector
+            currentValue={currentValue}
+            handleChange={handleSelection}
+            items={sortByItems}
+            options={{
+                labelId: 'sort-by-select-label',
+                id: 'sort-by-select',
+                label: 'Sort By'
+            }}
+        ></InputSelector>
     );
 };
 
@@ -162,40 +221,17 @@ const Home = () => {
             </Box>
 
             <Box sx={{ display: 'flex', justifyContent: 'left', marginBottom: '30px' }}>
-                <FormControl sx={{ minWidth: 210 }}>
-                    <InputLabel id="category-select-label">Filter by Category:</InputLabel>
-                    <Select
-                        labelId="category-select-label"
-                        id="category-select"
-                        value={category}
-                        label="Filter by Category"
-                        onChange={handleCategoryChange}
-                    >
-                        <MenuItem value="">Show All</MenuItem>
-                        <MenuItem value="electronics">Electronics</MenuItem>
-                        <MenuItem value="jewelery">Jewelery</MenuItem>
-                        <MenuItem value="men's clothing">Men's clothing</MenuItem>
-                        <MenuItem value="women's clothing">Women's clothing</MenuItem>
-                    </Select>
-                </FormControl>
+                <CategorySelector
+                    currentValue={category}
+                    handleSelection={handleCategoryChange}
+                ></CategorySelector>
             </Box>
 
             <Box sx={{ display: 'flex', justifyContent: 'left', marginBottom: '20px' }}>
-                <FormControl sx={{ minWidth: 210 }}>
-                    <InputLabel id="sort-by-select-label">Sort by:</InputLabel>
-                    <Select
-                        labelId="sort-by-select-label"
-                        id="sort-by-select"
-                        value={sortBy}
-                        label="Sort by"
-                        onChange={handleSortByChange}
-                    >
-                        <MenuItem value="">Show All</MenuItem>
-                        <MenuItem value="priceLowToHigh">Price: Low to high</MenuItem>
-                        <MenuItem value="priceHighToLow">Price: High to low</MenuItem>
-                        <MenuItem value="popularity">Avg. Customer review</MenuItem>
-                    </Select>
-                </FormControl>
+                <SortBySelector
+                    currentValue={sortBy}
+                    handleSelection={handleSortByChange}
+                ></SortBySelector>
             </Box>
             <ProductList
                 products={filteredAndSortedProducts}
