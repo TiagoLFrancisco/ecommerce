@@ -15,13 +15,11 @@ const InputSelector = ({ currentValue, handleChange, items, options: { labelId, 
             label={label}
             onChange={handleChange}
         >
-            {items.map(({ value, text }, index) => {
-                return (
-                    <MenuItem key={index} value={value}>
-                        {text}
-                    </MenuItem>
-                );
-            })}
+            {items.map(({ value, text }, index) => (
+                <MenuItem key={index} value={value}>
+                    {text}
+                </MenuItem>
+            ))}
         </Select>
     </FormControl>
 );

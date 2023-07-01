@@ -9,11 +9,7 @@ const ProductList = ({ products, handleItemClick }) => (
         }}
     >
         {products.map(product => (
-            <ProductCard
-                key={product.id}
-                product={product}
-                handleItemClick={handleItemClick}
-            ></ProductCard>
+            <ProductCard key={product.id} product={product} handleItemClick={handleItemClick} />
         ))}
     </List>
 );

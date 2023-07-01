@@ -19,7 +19,7 @@ const CategorySelector = ({ currentValue, handleSelection }) => (
             id: 'category-select',
             label: 'Filter By Category'
         }}
-    ></InputSelector>
+    />
 );
 
 export default CategorySelector;

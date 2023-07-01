@@ -18,7 +18,7 @@ const SortBySelector = ({ currentValue, handleSelection }) => (
             id: 'sort-by-select',
             label: 'Sort By'
         }}
-    ></InputSelector>
+    />
 );
 
 export default SortBySelector;

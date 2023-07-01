@@ -11,6 +11,8 @@ import { getProducts } from '../api/fake-store-service';
 
 import './Home.css';
 
+const getRandomPopularity = () => Math.floor(Math.random() * 100) + 1;
+
 const Home = () => {
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState('');
@@ -28,6 +30,7 @@ const Home = () => {
                     ...product,
                     popularity: getRandomPopularity()
                 }));
+
                 setProducts(updatedProducts);
             } catch (error) {
                 setError(error);
@@ -36,10 +39,6 @@ const Home = () => {
 
         fetchProducts();
     }, []);
-
-    const getRandomPopularity = () => {
-        return Math.floor(Math.random() * 100) + 1;
-    };
 
     const handleCategoryChange = event => {
         setCategory(event.target.value);
@@ -98,10 +97,7 @@ const Home = () => {
             </Box>
 
             <Box sx={{ display: 'flex', justifyContent: 'left', marginBottom: '20px' }}>
-                <SortBySelector
-                    currentValue={sortBy}
-                    handleSelection={handleSortByChange}
-                ></SortBySelector>
+                <SortBySelector currentValue={sortBy} handleSelection={handleSortByChange} />
             </Box>
             {error ? (
                 <div>{`Error: ${error.message} `}</div>
@@ -109,7 +105,7 @@ const Home = () => {
                 <ProductList
                     products={filteredAndSortedProducts}
                     handleItemClick={handleItemClick}
-                ></ProductList>
+                />
             )}
         </Box>
     );
