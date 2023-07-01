@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -8,32 +7,35 @@ import ProductList from './product/product-list';
 import CategorySelector from './selectors/category-selector';
 import SortBySelector from './selectors/sort-by-selector';
 
+import { getProducts } from '../api/fake-store-service';
+
 import './Home.css';
 
 const Home = () => {
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState('');
     const [sortBy, setSortBy] = useState('');
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchProducts();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        const fetchProducts = async () => {
+            try {
+                const response = await getProducts();
 
-    const fetchProducts = async () => {
-        try {
-            const response = await axios.get('https://fakestoreapi.com/products');
-            const updatedProducts = response.data.map(product => ({
-                ...product,
-                popularity: getRandomPopularity()
-            }));
-            setProducts(updatedProducts);
-        } catch (error) {
-            console.log('Error fetching products:', error);
-        }
-    };
+                const updatedProducts = response.map(product => ({
+                    ...product,
+                    popularity: getRandomPopularity()
+                }));
+                setProducts(updatedProducts);
+            } catch (error) {
+                setError(error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     const getRandomPopularity = () => {
         return Math.floor(Math.random() * 100) + 1;
@@ -101,10 +103,14 @@ const Home = () => {
                     handleSelection={handleSortByChange}
                 ></SortBySelector>
             </Box>
-            <ProductList
-                products={filteredAndSortedProducts}
-                handleItemClick={handleItemClick}
-            ></ProductList>
+            {error ? (
+                <div>{`Error: ${error.message} `}</div>
+            ) : (
+                <ProductList
+                    products={filteredAndSortedProducts}
+                    handleItemClick={handleItemClick}
+                ></ProductList>
+            )}
         </Box>
     );
 };
